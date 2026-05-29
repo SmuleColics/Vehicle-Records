@@ -1,0 +1,100 @@
+/* ── TOPBAR ── */
+.admin-topbar {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  z-index: 99;
+  min-height: 64px;
+}
+
+/* ── LAYOUT ── */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f4f5;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 260px;
+  padding-top: 44px;
+}
+
+/* ── SIDEBAR ── */
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.admin-nav-link:hover {
+  background-color: rgba(201, 168, 76, 0.12);
+  color: #C9A84C;
+}
+
+/* ── LOGO ICON ── */
+.admin-logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #C9A84C;
+}
+
+/* ── NAV LINKS ── */
+.admin-nav-link {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.admin-signout {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.admin-signout:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── SEARCH ── */
+.admin-search {
+  background-color: #f4f4f5;
+  border-color: #e4e4e7;
+}
+
+/* ── AVATAR ── */
+.admin-avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #C9A84C, #8b6914);
+  flex-shrink: 0;
+}
+
+/* Off canvas, mobile sidebar */
+#mobileSidebar {
+  width: 260px; 
+  background-color: #111111;
+}
+
+.admin-nav-link.active {
+  background-color: rgba(201, 168, 76, 0.15);
+  color: #C9A84C;
+}
+
+@media (max-width: 767.98px) {
+  .admin-main {
+    margin-left: 0;
+    padding-top: 74px;
+  }
+  .admin-topbar {
+    left: 0;
+  }
+}
