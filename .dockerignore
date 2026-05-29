@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+storage/logs/*.log
+tests
+*.md
+.editorconfig
+.gitattributes
+.gitignore
+phpunit.xml
+.DS_Store
