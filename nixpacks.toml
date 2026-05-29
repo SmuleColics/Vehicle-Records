@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs_22", "nodePackages_latest.npm", "php82", "php82Extensions.mbstring", "php82Extensions.pdo_mysql", "php82Extensions.xml", "php82Extensions.curl", "php82Extensions.tokenizer", "php82Extensions.ctype", "php82Extensions.fileinfo"]
+nixPkgs = ["nodejs_22", "php82", "php82Extensions.mbstring", "php82Extensions.pdo_mysql", "php82Extensions.xml", "php82Extensions.curl", "php82Extensions.tokenizer", "php82Extensions.ctype", "php82Extensions.fileinfo"]
 
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader", "npm install"]
