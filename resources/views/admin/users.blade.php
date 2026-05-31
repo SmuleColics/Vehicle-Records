@@ -17,40 +17,42 @@
     </div>
 
     <!-- TABLE -->
-    <div class="rounded-4 border overflow-hidden bg-white p-3">
-        <table id="usersTable" class="table table-hover mb-0 small">
-            <thead class="table-light text-uppercase text-secondary" style="font-size:0.7rem;letter-spacing:0.05em;">
-                <tr>
-                    <th class="px-4 py-3 fw-semibold">ID</th>
-                    <th class="px-4 py-3 fw-semibold">Full Name</th>
-                    <th class="px-4 py-3 fw-semibold">Email</th>
-                    <th class="px-4 py-3 fw-semibold">Created Date</th>
-                    <th class="px-4 py-3 fw-semibold text-end" style="width:120px;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
+    <div class="rounded-4 border bg-white p-3">
+        <div class="table-responsive">
+            <table id="usersTable" class="table table-hover mb-0 small">
+                <thead class="table-light text-uppercase text-secondary" style="font-size:0.7rem;letter-spacing:0.05em;">
                     <tr>
-                        <td class="px-4 py-3 fw-medium">{{ $user->id }}</td>
-                        <td class="px-4 py-3 text-secondary">{{ $user->name }}</td>
-                        <td class="px-4 py-3 text-secondary">{{ $user->email }}</td>
-                        <td class="px-4 py-3 text-secondary">{{ $user->created_at->format('M d, Y') }}</td>
-                        <td class="px-4 py-3">
-                            <div class="d-flex justify-content-end gap-1">
-                                <button class="btn btn-sm btn-light rounded-3 p-2 d-flex align-items-center"
-                                    data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
-                                    <i class="bi bi-pencil" style="font-size:0.75rem;"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light rounded-3 p-2 d-flex align-items-center text-danger"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
-                                    <i class="bi bi-trash3" style="font-size:0.75rem;"></i>
-                                </button>
-                            </div>
-                        </td>
+                        <th class="px-4 py-3 fw-semibold">ID</th>
+                        <th class="px-4 py-3 fw-semibold">Full Name</th>
+                        <th class="px-4 py-3 fw-semibold">Email</th>
+                        <th class="px-4 py-3 fw-semibold">Created Date</th>
+                        <th class="px-4 py-3 fw-semibold text-end" style="width:120px;">Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td class="px-4 py-3 fw-medium">{{ $user->id }}</td>
+                            <td class="px-4 py-3 text-secondary">{{ $user->name }}</td>
+                            <td class="px-4 py-3 text-secondary">{{ $user->email }}</td>
+                            <td class="px-4 py-3 text-secondary">{{ $user->created_at }}</td>
+                            <td class="px-4 py-3">
+                                <div class="d-flex justify-content-end gap-1">
+                                    <button class="btn btn-sm btn-light rounded-3 p-2 d-flex align-items-center"
+                                        data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
+                                        <i class="bi bi-pencil" style="font-size:0.75rem;"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light rounded-3 p-2 d-flex align-items-center text-danger"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}">
+                                        <i class="bi bi-trash3" style="font-size:0.75rem;"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     {{-- EDIT AND DELETE MODAL --}}

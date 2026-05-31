@@ -58,27 +58,27 @@
                     <!-- Password -->
                     <div class="mb-4">
                         <label for="password" class="form-label small fw-medium">Password</label>
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm has-validation">
                             <input type="password" id="password" class="form-control py-2"
                                 placeholder="At least 6 characters" minlength="6" name="password" required />
                             <button class="btn btn-light border" type="button" id="togglePassword">
                                 <i class="bi bi-eye" style="font-size:0.8rem;"></i>
                             </button>
+                            <div class="invalid-feedback">Password must be at least 6 characters.</div>
                         </div>
-                        <div class="invalid-feedback">Password must be at least 6 characters.</div>
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="mb-4">
                         <label for="confirm_password" class="form-label small fw-medium">Confirm password</label>
-                        <div class="input-group input-group-sm">
-                            <input type="password" id="confirm_password" name="confirm_password"
-                                class="form-control py-2" placeholder="Confirm password" required />
+                        <div class="input-group input-group-sm has-validation">
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control py-2"
+                                placeholder="Confirm password" required />
                             <button class="btn btn-light border" type="button" id="togglePasswordConfirm">
                                 <i class="bi bi-eye" style="font-size:0.8rem;"></i>
                             </button>
+                            <div class="invalid-feedback">Passwords do not match.</div>
                         </div>
-                        <div class="invalid-feedback">Passwords do not match.</div>
                     </div>
 
                     <!-- Submit -->

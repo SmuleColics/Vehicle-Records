@@ -80,13 +80,13 @@
                         <div class="col-12 col-md-6">
                             <label for="fieldPhone" class="form-label small fw-medium">Phone</label>
                             <input type="tel" id="fieldPhone" name="phone" placeholder="09123456789"
-                                class="form-control form-control-sm py-2" value="{{ $user->phone }}" required />
+                                class="form-control form-control-sm py-2" value="{{ $user->phone }}"/>
                             <div class="invalid-feedback">Phone number is required.</div>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <label for="fieldGender" class="form-label small fw-medium">Gender</label>
-                            <select id="fieldGender" name="gender" class="form-select form-select-sm py-2" required>
+                            <select id="fieldGender" name="gender" class="form-select form-select-sm py-2">
                                 <option value="" disabled {{ !$user->gender ? 'selected' : '' }}>Select gender
                                 </option>
                                 <option value="Female" {{ $user->gender == 'Female' ? 'selected' : '' }}>Female</option>
@@ -99,7 +99,7 @@
                         <div class="col-12">
                             <label for="fieldAddress" class="form-label small fw-medium">Address</label>
                             <input type="text" id="fieldAddress" name="address" placeholder="Quezon City, PH"
-                                class="form-control form-control-sm py-2" value="{{ $user->address }}" required />
+                                class="form-control form-control-sm py-2" value="{{ $user->address }}"/>
                             <div class="invalid-feedback">Address is required.</div>
                         </div>
 
@@ -113,7 +113,7 @@
                             <label for="currentPassword" class="form-label small fw-medium">Current password</label>
                             <div class="input-group input-group-sm has-validation">
                                 <input type="password" id="currentPassword" minlength="6" name="current_password"
-                                    class="form-control py-2" placeholder="••••••••" required/>
+                                    class="form-control py-2" placeholder="••••••••"/>
                                 <button class="btn btn-light border toggle-pw" type="button"
                                     data-target="currentPassword">
                                     <i class="bi bi-eye" style="font-size:0.8rem;"></i>
@@ -126,7 +126,7 @@
                             <label for="newPassword" class="form-label small fw-medium">New password</label>
                             <div class="input-group input-group-sm has-validation">
                                 <input type="password" id="newPassword" name="new_password" class="form-control py-2"
-                                    placeholder="••••••••" minlength="6" required/>
+                                    placeholder="••••••••" minlength="6"/>
                                 <button class="btn btn-light border toggle-pw" type="button" data-target="newPassword">
                                     <i class="bi bi-eye" style="font-size:0.8rem;"></i>
                                 </button>
@@ -138,7 +138,7 @@
                             <label for="confirmPassword" class="form-label small fw-medium">Confirm new password</label>
                             <div class="input-group input-group-sm has-validation">
                                 <input type="password" id="confirmPassword" minlength="6" name="confirm_password"
-                                    class="form-control py-2" placeholder="••••••••" required/>
+                                    class="form-control py-2" placeholder="••••••••"/>
                                 <button class="btn btn-light border toggle-pw" type="button"
                                     data-target="confirmPassword">
                                     <i class="bi bi-eye" style="font-size:0.8rem;"></i>

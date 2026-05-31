@@ -55,7 +55,9 @@
         <div class="col-12 col-lg-4">
             <div class="rounded-4 border p-4 bg-white h-100">
                 <h2 class="fw-semibold fs-6 mb-4">By vehicle type</h2>
-                <canvas id="typeChart"></canvas>
+                <div class="mx-auto" style="max-width: 220px;">
+                    <canvas id="typeChart"></canvas>
+                </div>
                 <div class="row g-2 mt-3">
                     <div class="col-6 d-flex align-items-center gap-2 small">
                         <span class="chart-dot" style="background:#C9A84C;"></span> Sedan
