@@ -69,10 +69,22 @@ class AdminController extends Controller
       return back()->with('error', 'Account already exists');
     }
 
-    $user->update([
-      'name' => $request->name,
-      'email' => $request->email,
-    ]);
+    $user->name  = $request->name;
+    $user->email = $request->email;
+
+    if ($request->filled('new_password')) {
+      if (!Hash::check($request->current_password, $user->password)) {
+        return back()->with('error', 'Current password is incorrect');
+      }
+
+      if ($request->new_password !== $request->confirm_password) {
+        return back()->with('error', 'Passwords do not match');
+      }
+
+      $user->password = Hash::make($request->new_password);
+    }
+
+    $user->save();
 
     return back()->with('success', 'User updated successfully');
   }

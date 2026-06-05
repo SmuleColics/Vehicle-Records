@@ -14,7 +14,7 @@ $(document).ready(function () {
         columnDefs: [{ orderable: false, targets: -1 }],
     });
 
-    // ── MODAL PASSWORD TOGGLE ──
+    // ── ADD MODAL PASSWORD TOGGLE ──
     const modalTogglePassword = document.getElementById('modalTogglePassword');
     if (modalTogglePassword) {
         modalTogglePassword.addEventListener('click', function () {
@@ -30,7 +30,7 @@ $(document).ready(function () {
         });
     }
 
-    // ── MODAL CONFIRM PASSWORD TOGGLE ──
+    // ── ADD MODAL CONFIRM PASSWORD TOGGLE ──
     const modalTogglePasswordConfirm = document.getElementById('modalTogglePasswordConfirm');
     if (modalTogglePasswordConfirm) {
         modalTogglePasswordConfirm.addEventListener('click', function () {
@@ -47,3 +47,13 @@ $(document).ready(function () {
     }
 
 });
+
+// ── EDIT MODAL PASSWORD TOGGLES ──
+function togglePass(btn) {
+    const input = btn.closest('.input-group').querySelector('input');
+    const icon = btn.querySelector('i');
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    icon.classList.toggle('bi-eye', !isPassword);
+    icon.classList.toggle('bi-eye-slash', isPassword);
+}

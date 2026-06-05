@@ -57,7 +57,6 @@
 
     {{-- EDIT AND DELETE MODAL --}}
     @foreach ($users as $user)
-        <!-- EDIT USER MODAL -->
         <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-0 rounded-4 overflow-hidden">
@@ -69,18 +68,71 @@
                         @csrf
                         <div class="modal-body px-4 py-4">
                             <div class="row g-3">
+
+                                {{-- Name --}}
                                 <div class="col-12">
                                     <label class="form-label small fw-medium">Full name</label>
                                     <input type="text" name="name" class="form-control form-control-sm py-2"
                                         value="{{ $user->name }}" placeholder="James Macalintal" required />
                                     <div class="invalid-feedback">Name is required.</div>
                                 </div>
+
+                                {{-- Email --}}
                                 <div class="col-12">
                                     <label class="form-label small fw-medium">Email</label>
                                     <input type="email" name="email" class="form-control form-control-sm py-2"
                                         value="{{ $user->email }}" placeholder="james@gmail.com" required />
                                     <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
+
+                                {{-- Divider --}}
+                                <div class="col-12">
+                                    <hr class="my-1">
+                                    <p class="small text-secondary mb-0">Change password <span
+                                            class="text-muted">(optional)</span></p>
+                                </div>
+
+                                {{-- Current Password --}}
+                                <div class="col-12">
+                                    <label class="form-label small fw-medium">Current password</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="password" name="current_password"
+                                            class="form-control py-2 edit-current-pass-{{ $user->id }}"
+                                            placeholder="Enter current password" />
+                                        <button class="btn btn-light border" type="button" onclick="togglePass(this)">
+                                            <i class="bi bi-eye" style="font-size:0.8rem;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {{-- New Password --}}
+                                <div class="col-12">
+                                    <label class="form-label small fw-medium">New password</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="password" name="new_password"
+                                            class="form-control py-2 edit-new-pass-{{ $user->id }}"
+                                            placeholder="At least 6 characters" minlength="6" />
+                                        <button class="btn btn-light border" type="button" onclick="togglePass(this)">
+                                            <i class="bi bi-eye" style="font-size:0.8rem;"></i>
+                                        </button>
+                                        <div class="invalid-feedback">New password must be at least 6 characters.</div>
+                                    </div>
+                                </div>
+
+                                {{-- Confirm Password --}}
+                                <div class="col-12">
+                                    <label class="form-label small fw-medium">Confirm new password</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="password" name="confirm_password"
+                                            class="form-control py-2 edit-confirm-pass-{{ $user->id }}"
+                                            placeholder="Confirm new password" />
+                                        <button class="btn btn-light border" type="button" onclick="togglePass(this)">
+                                            <i class="bi bi-eye" style="font-size:0.8rem;"></i>
+                                        </button>
+                                        <div class="invalid-feedback">Passwords do not match.</div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="modal-footer border-0 px-4 pb-4 pt-0">
