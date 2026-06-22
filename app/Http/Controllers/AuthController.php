@@ -48,7 +48,6 @@ class AuthController extends Controller
 
     session(['user' => $user]);
 
-    return redirect()->route('dashboard')->with('success', 'Logged in successfully');
   }
 
 }
