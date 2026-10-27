@@ -1,59 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Garahe — Vehicle Records Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel 12 web app for managing vehicle records, with two sides:
 
-## About Laravel
+- **Admin console**: fleet-wide dashboard, every vehicle and its owner, user management with admin/client roles.
+- **Client portal**: a personal dashboard and the owner's own vehicles only.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Built with Laravel 12, PHP 8, MySQL, Blade, Bootstrap 5, Chart.js and DataTables. Originally an ITEC 106 final project.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Run locally (XAMPP)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+composer install
+cp .env.example .env        # set DB_CONNECTION=mysql and your DB_ values
+php artisan key:generate
+php artisan migrate --seed  # --seed adds the demo accounts and sample vehicles
+php artisan serve
+```
 
-## Learning Laravel
+Forgot a password? Reset any account (add `--admin` to also make it an admin):
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+php artisan user:reset-password you@example.com --admin
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Deploy to Vercel
 
-## Laravel Sponsors
+Vercel runs PHP through the community [`vercel-php`](https://github.com/vercel-community/php) runtime (`api/index.php` + `vercel.json`).
+It has no database of its own, so the app uses a free MySQL-compatible [TiDB Cloud](https://tidbcloud.com) cluster.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Database**: create a free TiDB Cloud Starter cluster (region: Singapore), then a database named `garahe`.
+2. **Settings**: fill in the `DB_` values in `.env.production` (git-ignored).
+3. **Tables + demo data**: run from your PC (Windows needs a CA file for TLS, Git for Windows ships one):
 
-### Premium Partners
+   ```bash
+   MYSQL_ATTR_SSL_CA="C:/vscode/Git/mingw64/etc/ssl/certs/ca-bundle.crt" php artisan migrate --seed --env=production --force
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Vercel**: Add New → Project → import this GitHub repo, paste the contents of `.env.production` into
+   Environment Variables, and deploy. Leave the framework preset as "Other".
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Profile photos are saved in the database because Vercel's filesystem is read-only.

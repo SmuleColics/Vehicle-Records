@@ -13,18 +13,15 @@
             style="width:36px;height:36px;">
             <i class="bi bi-bell small"></i>
         </button>
-        <a href="{{ route('profile') }}">
-            @if (session('user') && session('user')->profile_picture)
-                <img src="{{ asset('uploads/' . session('user')->profile_picture) }}"
-                    class="rounded-circle"
-                    width="36" height="36"
-                    style="object-fit:cover;" />
-            @else
-                <img src="{{ asset('images/default.jpg') }}"
-                    class="rounded-circle"
-                    width="36" height="36"
-                    style="object-fit:cover;" />
-            @endif
+        <a href="{{ route('profile') }}" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+            <span class="d-none d-sm-block text-end lh-sm">
+                <span class="d-block small fw-semibold">{{ session('user')->name }}</span>
+                <span class="d-block text-secondary" style="font-size:0.7rem;">{{ session('user')->isAdmin() ? 'Administrator' : 'Client' }}</span>
+            </span>
+            <img src="{{ session('user')->avatarUrl() }}"
+                class="rounded-circle"
+                width="36" height="36"
+                style="object-fit:cover;" />
         </a>
     </div>
 </header>

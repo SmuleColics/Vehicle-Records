@@ -47,6 +47,17 @@
   background-color: #C9A84C;
 }
 
+/* ── ROLE BADGE ── */
+.sidebar-role-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  background-color: rgba(201, 168, 76, 0.15);
+  color: #C9A84C;
+}
+
 /* ── NAV LINKS ── */
 .admin-nav-link {
   color: rgba(255, 255, 255, 0.6);
@@ -57,6 +68,10 @@
 
 .admin-signout {
   color: rgba(255, 255, 255, 0.4);
+}
+
+.sidebar-account {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .admin-signout:hover {

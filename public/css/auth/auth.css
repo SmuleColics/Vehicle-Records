@@ -14,6 +14,10 @@
 }
 
 /* ===== LOGIN ===== */
+.auth-demo {
+  background-color: #fafafa;
+}
+
 .login-right {
   background-color: #111111;
 }

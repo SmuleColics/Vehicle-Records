@@ -1,14 +1,18 @@
 @extends('layouts.main')
 
-@section('title', 'Vehicle Records')
+@php($isAdmin = session('user')->isAdmin())
+
+@section('title', $isAdmin ? 'Vehicle Records' : 'My Vehicles')
 
 @section('content')
 
     <!-- HEADER -->
     <div class="d-flex align-items-start justify-content-between mb-4">
         <div>
-            <h1 class="fw-bold fs-4 mb-1">Vehicle Records</h1>
-            <p class="text-secondary small mb-0">All flood control vehicles you've added to your workspace.</p>
+            <h1 class="fw-bold fs-4 mb-1">{{ $isAdmin ? 'Vehicle Records' : 'My Vehicles' }}</h1>
+            <p class="text-secondary small mb-0">
+                {{ $isAdmin ? 'Every vehicle registered by all users.' : "All the vehicles you've added to your garage." }}
+            </p>
         </div>
         <button class="btn btn-dark btn-sm rounded-3 d-flex align-items-center gap-2 fw-semibold" data-bs-toggle="modal"
             data-bs-target="#addModal">
@@ -27,6 +31,9 @@
                         <th class="px-4 py-3 fw-semibold">Model</th>
                         <th class="px-4 py-3 fw-semibold">Year</th>
                         <th class="px-4 py-3 fw-semibold">Type</th>
+                        @if ($isAdmin)
+                            <th class="px-4 py-3 fw-semibold">Owner</th>
+                        @endif
                         <th class="px-4 py-3 fw-semibold">Created Date</th>
                         <th class="px-4 py-3 fw-semibold text-end" style="width:100px;">Actions</th>
                     </tr>
@@ -43,6 +50,9 @@
                                     {{ $vehicle->type }}
                                 </span>
                             </td>
+                            @if ($isAdmin)
+                                <td class="px-4 py-3 text-secondary">{{ $vehicle->user->name ?? '—' }}</td>
+                            @endif
                             <td class="px-4 py-3 text-secondary">{{ $vehicle->created_at }}</td>
                             <td class="px-4 py-3">
                                 <div class="d-flex justify-content-end gap-1">
@@ -188,6 +198,18 @@
                                     placeholder="2024" min="1900" max="2099" required />
                                 <div class="invalid-feedback">Year is required.</div>
                             </div>
+                            @if ($isAdmin)
+                                <div class="col-12">
+                                    <label class="form-label small fw-medium">Owner</label>
+                                    <select name="user_id" class="form-select form-select-sm py-2" required>
+                                        @foreach ($owners as $owner)
+                                            <option value="{{ $owner->id }}" {{ $owner->id == session('user')->id ? 'selected' : '' }}>
+                                                {{ $owner->name }} ({{ $owner->email }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                             <div class="col-12">
                                 <label class="form-label small fw-medium">Type</label>
                                 <select name="type" class="form-select form-select-sm py-2" required>

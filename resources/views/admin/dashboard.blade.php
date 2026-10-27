@@ -16,7 +16,8 @@
     <!-- STAT CARDS -->
     <div class="row g-4 mb-4">
         <div class="col-12 col-md-6">
-            <div class="stat-card rounded-4 border p-4 bg-white">
+            <a href="{{ route('users') }}"
+                class="stat-card stat-card-link d-block text-reset text-decoration-none rounded-4 border p-4 bg-white">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <p class="text-secondary small mb-0">Total Users</p>
                     <span class="stat-icon rounded-3 d-flex align-items-center justify-content-center">
@@ -24,11 +25,12 @@
                     </span>
                 </div>
                 <p class="fw-bold mb-1" style="font-size:1.75rem;">{{ $userCount }}</p>
-                <p class="text-secondary small mb-0">Registered accounts</p>
-            </div>
+                <p class="text-secondary small mb-0">Registered accounts <i class="bi bi-arrow-right stat-card-arrow"></i></p>
+            </a>
         </div>
         <div class="col-12 col-md-6">
-            <div class="stat-card rounded-4 border p-4 bg-white">
+            <a href="{{ route('vehicles') }}"
+                class="stat-card stat-card-link d-block text-reset text-decoration-none rounded-4 border p-4 bg-white">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <p class="text-secondary small mb-0">Vehicle Records</p>
                     <span class="stat-icon rounded-3 d-flex align-items-center justify-content-center">
@@ -36,8 +38,8 @@
                     </span>
                 </div>
                 <p class="fw-bold mb-1" style="font-size:1.75rem;">{{ $vehicleCount }}</p>
-                <p class="text-secondary small mb-0">Total vehicles logged</p>
-            </div>
+                <p class="text-secondary small mb-0">Total vehicles logged <i class="bi bi-arrow-right stat-card-arrow"></i></p>
+            </a>
         </div>
     </div>
 
@@ -47,7 +49,7 @@
             <div class="rounded-4 border p-4 bg-white">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h2 class="fw-semibold fs-6 mb-0">Vehicles added per month</h2>
-                    <span class="text-secondary small">2025</span>
+                    <span class="text-secondary small">{{ date('Y') }}</span>
                 </div>
                 <canvas id="recordsChart" height="120"></canvas>
             </div>

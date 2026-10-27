@@ -7,6 +7,27 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
 }
 
+/* clickable summary cards */
+.stat-card-link {
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.stat-card-link:hover {
+  border-color: #C9A84C !important;
+  transform: translateY(-2px);
+}
+
+.stat-card-arrow {
+  color: #C9A84C;
+  opacity: 0;
+  transition: opacity 0.2s, margin-left 0.2s;
+}
+
+.stat-card-link:hover .stat-card-arrow {
+  opacity: 1;
+  margin-left: 0.25rem;
+}
+
 .stat-icon {
   width: 36px;
   height: 36px;

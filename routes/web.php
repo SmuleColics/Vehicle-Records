@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.register');
-});
+//landing page
+Route::view('/', 'landing')->name('home');
 
 // ======================== AUTHENTICATION SIDE ========================
 
@@ -22,49 +24,68 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 //Login backend
 Route::post('/login', [AuthController::class, 'login']);
 
-// ======================== ADMIN SIDE ========================
-
-//show Admin Dashboard
-Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('dashboard');
-
-// ======================== USERS ========================
-
-//show Admin Users
-Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('users');
-
-// add Users
-Route::post('/admin/users', [AdminController::class, 'addUser'])->name('addUser');
-
-// edit Users
-Route::post('/admin/users/{id}', [AdminController::class, 'editUser'])->name('editUser');
-// edit Users
-
-Route::get('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
-
-// ======================== VEHICLES ========================
-
-//show Admin Vehicle Records
-Route::get('/admin/vehicles', [AdminController::class, 'showVehicles'])->name('vehicles');
-
-//add Vehicle
-Route::post('/admin/vehicles', [AdminController::class, 'addVehicle'])->name('addVehicle');
-
-//edit Vehicle
-Route::post('/admin/vehicles/{id}', [AdminController::class, 'editVehicle'])->name('editVehicle');
-
-//delete Vehicle
-Route::get('/admin/vehicles/{id}', [AdminController::class, 'deleteVehicle'])->name('deleteVehicle');
-
-// ======================== PROFILE ========================
-
-//show Admin Profile
-Route::get('/admin/profile', [AdminController::class, 'showProfile'])->name('profile');
-
-//update Profile
-Route::post('/admin/profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
-
-//update Profile Picture
-Route::post('/admin/profile/picture', [AdminController::class, 'updateProfilePicture'])->name('updateProfilePicture');
+//one-click demo login (admin or client)
+Route::post('/demo/{role}', [AuthController::class, 'demoLogin'])->whereIn('role', ['admin', 'client'])->name('demoLogin');
 
 //logout
-Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//profile pictures stored in the database
+Route::get('/avatar/{id}', [ProfileController::class, 'showProfilePicture'])->name('avatar');
+
+Route::middleware('loggedin')->group(function () {
+
+    // ======================== ADMIN SIDE ========================
+
+    Route::middleware('admin')->group(function () {
+
+        //show Admin Dashboard
+        Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('dashboard');
+
+        //show Admin Users
+        Route::get('/admin/users', [AdminController::class, 'showUsers'])->name('users');
+
+        // add Users
+        Route::post('/admin/users', [AdminController::class, 'addUser'])->name('addUser');
+
+        // edit Users
+        Route::post('/admin/users/{id}', [AdminController::class, 'editUser'])->name('editUser');
+
+        // delete Users
+        Route::get('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('deleteUser');
+    });
+
+    // ======================== CLIENT PORTAL ========================
+
+    //show Client Dashboard
+    Route::get('/portal', [ClientController::class, 'showDashboard'])->name('portal');
+
+    // ======================== VEHICLES (admins see all, clients see their own) ========================
+
+    //show Vehicle Records
+    Route::get('/vehicles', [VehicleController::class, 'showVehicles'])->name('vehicles');
+
+    //add Vehicle
+    Route::post('/vehicles', [VehicleController::class, 'addVehicle'])->name('addVehicle');
+
+    //edit Vehicle
+    Route::post('/vehicles/{id}', [VehicleController::class, 'editVehicle'])->name('editVehicle');
+
+    //delete Vehicle
+    Route::get('/vehicles/{id}', [VehicleController::class, 'deleteVehicle'])->name('deleteVehicle');
+
+    // ======================== PROFILE ========================
+
+    //show Profile
+    Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
+
+    //update Profile
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+
+    //update Profile Picture
+    Route::post('/profile/picture', [ProfileController::class, 'updateProfilePicture'])->name('updateProfilePicture');
+});
+
+//old admin links from before the client portal existed
+Route::redirect('/admin/vehicles', '/vehicles');
+Route::redirect('/admin/profile', '/profile');

@@ -13,8 +13,15 @@
         <div class="col-12 col-md-6 d-flex align-items-center justify-content-center px-4 py-5 bg-white">
             <div class="auth-form-wrap w-100">
 
+                <!-- Back to landing page -->
+                <div class="mb-4">
+                    <a href="{{ route('home') }}" class="d-inline-flex align-items-center gap-1 small text-secondary text-decoration-none">
+                        <i class="bi bi-arrow-left"></i> Back to home
+                    </a>
+                </div>
+
                 <!-- Logo -->
-                <a href="/" class="d-inline-flex align-items-center gap-2 text-decoration-none text-dark fw-bold mb-5">
+                <a href="{{ route('home') }}" class="d-inline-flex align-items-center gap-2 text-decoration-none text-dark fw-bold mb-5">
                     <span class="auth-logo-icon rounded-2">
                         <i class="bi bi-car-front-fill text-white"></i>
                     </span>
@@ -22,7 +29,7 @@
                 </a>
 
                 <h1 class="fw-bold fs-3 mb-1">Welcome back</h1>
-                <p class="text-secondary small mb-4">Log in to manage your flood control vehicle records.</p>
+                <p class="text-secondary small mb-4">Log in to manage your vehicle records.</p>
 
                 <!-- Form -->
                 <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
@@ -57,6 +64,27 @@
                     </button>
 
                 </form>
+
+                @if (config('demo.enabled'))
+                    <div class="auth-demo rounded-3 border p-3 mt-4">
+                        <p class="small fw-semibold mb-1">Just visiting?</p>
+                        <p class="small text-secondary mb-2">Look around with a demo account, no password needed.</p>
+                        <div class="d-flex gap-2">
+                            <form method="POST" action="{{ route('demoLogin', 'admin') }}" class="flex-fill">
+                                @csrf
+                                <button type="submit" class="btn btn-light border btn-sm w-100">
+                                    <i class="bi bi-speedometer2"></i> Admin demo
+                                </button>
+                            </form>
+                            <form method="POST" action="{{ route('demoLogin', 'client') }}" class="flex-fill">
+                                @csrf
+                                <button type="submit" class="btn btn-light border btn-sm w-100">
+                                    <i class="bi bi-house-door"></i> Client demo
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endif
 
                 <p class="text-center text-secondary small mt-4 mb-0">
                     Don't have an account?

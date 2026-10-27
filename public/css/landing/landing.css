@@ -1,0 +1,183 @@
+/* ── BASE ── */
+body {
+  background-color: #f4f4f5;
+  color: #1a1a1a;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+.text-gold {
+  color: #C9A84C;
+}
+
+/* ── BUTTONS ── */
+.btn-gold {
+  background-color: #C9A84C;
+  border-color: #C9A84C;
+  color: #111111;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+  background-color: #b8973f;
+  border-color: #b8973f;
+  color: #111111;
+}
+
+/* ── LOGO ICON ── */
+.landing-logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #C9A84C;
+  display: inline-grid;
+  place-items: center;
+}
+
+.landing-logo-icon--sm {
+  width: 22px;
+  height: 22px;
+  font-size: 0.7rem;
+}
+
+/* ── NAVBAR ── */
+.landing-nav {
+  background-color: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.landing-nav .nav-link {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.landing-nav .nav-link:hover {
+  color: #C9A84C;
+}
+
+/* ── HERO ── */
+.landing-hero {
+  background-color: #111111;
+  padding: 140px 0 96px;
+}
+
+.landing-hero-img {
+  opacity: 0.35;
+}
+
+.landing-hero-gradient {
+  background: linear-gradient(100deg, rgba(17, 17, 17, 0.97) 35%, rgba(17, 17, 17, 0.6));
+}
+
+.landing-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  color: #C9A84C;
+  background-color: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+.landing-lead {
+  max-width: 520px;
+  font-size: 1.05rem;
+}
+
+/* ── APP PREVIEW ── */
+.landing-preview {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  transform: perspective(1200px) rotateY(-6deg);
+}
+
+.landing-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ── SECTIONS ── */
+.landing-section {
+  padding: 88px 0;
+}
+
+.landing-kicker {
+  color: #C9A84C;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── FEATURE CARDS ── */
+.landing-card {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.landing-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  transform: translateY(-2px);
+}
+
+.landing-feature-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 1.1rem;
+  color: #C9A84C;
+  background-color: rgba(201, 168, 76, 0.12);
+}
+
+/* ── PORTAL CARDS ── */
+.landing-portal {
+  background-color: #fafafa;
+}
+
+.landing-portal--dark {
+  background-color: #111111;
+}
+
+/* ── STEPS ── */
+.landing-step {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background-color: #111111;
+  color: #C9A84C;
+}
+
+/* ── TECH CHIPS ── */
+.landing-chip {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  background-color: #f4f4f5;
+  border: 1px solid #e4e4e7;
+}
+
+/* ── CTA ── */
+.landing-cta {
+  background: linear-gradient(120deg, #111111 55%, #3a2f12);
+}
+
+@media (max-width: 767.98px) {
+  .landing-hero {
+    padding: 110px 0 64px;
+  }
+
+  .landing-section {
+    padding: 64px 0;
+  }
+
+  .landing-nav .navbar-collapse {
+    padding-bottom: 0.5rem;
+  }
+}

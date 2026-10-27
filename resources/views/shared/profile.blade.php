@@ -27,17 +27,15 @@
 
                     <!-- Avatar preview -->
                     <div class="avatar-wrap mb-3">
-                        @if ($user->profile_picture)
-                            <img src="{{ asset('uploads/' . $user->profile_picture) }}" class="rounded-circle"
-                                width="112" height="112" style="object-fit:cover;" id="avatarImg" />
-                        @else
-                            <img src="{{ asset('images/default.jpg') }}" class="rounded-circle" width="112"
-                                height="112" style="object-fit:cover;" id="avatarImg" />
-                        @endif
+                        <img src="{{ $user->avatarUrl() }}" class="rounded-circle" width="112" height="112"
+                            style="object-fit:cover;" id="avatarImg" />
                     </div>
 
                     <p class="fw-semibold mb-0">{{ $user->name }}</p>
-                    <p class="text-secondary small mb-3">{{ $user->email }}</p>
+                    <p class="text-secondary small mb-1">{{ $user->email }}</p>
+                    <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis fw-normal mb-3">
+                        {{ $user->isAdmin() ? 'Administrator' : 'Client' }}
+                    </span>
 
                     <!-- File input -->
                     <div class="mb-3 w-100">

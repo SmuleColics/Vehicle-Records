@@ -26,12 +26,12 @@ class AdminController extends Controller
     return view('admin.dashboard', compact('userCount', 'vehicleCount', 'monthlyData', 'byType'));
   }
 
-  // ========== USERS ========== 
+  // ========== USERS ==========
 
   public function showUsers()
   {
     // get all users in the db
-    $users = User::all();
+    $users = User::withCount('vehicles')->get();
 
     // gagawing associate array
     return view('admin.users', compact('users'));
@@ -51,6 +51,7 @@ class AdminController extends Controller
       'name'     => $request->name,
       'email'    => $request->email,
       'password' => Hash::make($request->password),
+      'role'     => $request->role === User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_CLIENT,
     ]);
 
     session()->forget('error');
@@ -65,12 +66,21 @@ class AdminController extends Controller
       return back()->with('error', 'User not found');
     }
 
+    if ($user->isDemo()) {
+      return back()->with('error', 'Demo accounts cannot be edited');
+    }
+
     if (User::where('email', $request->email)->where('id', '!=', $id)->exists()) {
       return back()->with('error', 'Account already exists');
     }
 
     $user->name  = $request->name;
     $user->email = $request->email;
+
+    // admins can't demote themselves, otherwise they'd lock themselves out
+    if ($user->id != session('user')->id) {
+      $user->role = $request->role === User::ROLE_ADMIN ? User::ROLE_ADMIN : User::ROLE_CLIENT;
+    }
 
     if ($request->filled('new_password')) {
       if (!Hash::check($request->current_password, $user->password)) {
@@ -97,137 +107,16 @@ class AdminController extends Controller
       return back()->with('error', 'User not found');
     }
 
+    if ($user->isDemo()) {
+      return back()->with('error', 'Demo accounts cannot be deleted');
+    }
+
+    if ($user->id == session('user')->id) {
+      return back()->with('error', 'You cannot delete your own account');
+    }
+
     $user->delete();
 
     return back()->with('success', 'User deleted successfully');
-  }
-
-  // ========== VEHICLES ========== 
-
-  public function showVehicles()
-  {
-    $vehicles = Vehicle::where('user_id', session('user')->id)->get();
-
-    return view('admin.vehicles', compact('vehicles'));
-  }
-
-  public function addVehicle(Request $request)
-  {
-    if (Vehicle::where('plate', $request->plate)->exists()) {
-      return back()->with('error', 'Plate number already exists');
-    }
-
-    Vehicle::create([
-      'user_id' => session('user')->id,
-      'plate'   => $request->plate,
-      'brand'   => $request->brand,
-      'model'   => $request->model,
-      'year'    => $request->year,
-      'type'    => $request->type,
-    ]);
-
-    return back()->with('success', 'Vehicle added successfully');
-  }
-
-  public function editVehicle(Request $request, $id)
-  {
-    $vehicle = Vehicle::where('id', $id)->where('user_id', session('user')->id)->first();
-
-    if (!$vehicle) {
-      return back()->with('error', 'Vehicle not found');
-    }
-
-    if (Vehicle::where('plate', $request->plate)->where('id', '!=', $id)->exists()) {
-      return back()->with('error', 'Plate number already exists');
-    }
-
-    $vehicle->update([
-      'plate' => $request->plate,
-      'brand' => $request->brand,
-      'model' => $request->model,
-      'year'  => $request->year,
-      'type'  => $request->type,
-    ]);
-
-    return back()->with('success', 'Vehicle updated successfully');
-  }
-
-  public function deleteVehicle($id)
-  {
-    $vehicle = Vehicle::where('id', $id)->where('user_id', session('user')->id)->first();
-
-    if (!$vehicle) {
-      return back()->with('error', 'Vehicle not found');
-    }
-
-    $vehicle->delete();
-
-    return back()->with('success', 'Vehicle deleted successfully');
-  }
-
-  // ========== PROFILE ========== 
-
-  public function showProfile()
-  {
-    $user = User::find(session('user')->id);
-
-    return view('admin.profile', compact('user'));
-  }
-
-  public function updateProfilePicture(Request $request)
-  {
-    $user = User::find(session('user')->id);
-
-    if (!$request->hasFile('profile')) {
-      return back()->with('error', 'Please select a photo to upload.');
-    }
-
-    $file = $request->file('profile');
-    $filename = time() . '.' . $file->getClientOriginalExtension();
-    $file->move(public_path('uploads'), $filename);
-    $user->profile_picture = $filename;
-    $user->save();
-
-    session(['user' => $user]);
-
-    return back()->with('success', 'Profile picture updated successfully');
-  }
-
-  public function updateProfile(Request $request)
-  {
-    $user = User::find(session('user')->id);
-
-    // Update personal details
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->phone = $request->phone;
-    $user->gender = $request->gender;
-    $user->address = $request->address;
-
-    // Update password only if new password is provided
-    if ($request->new_password) {
-      if (!Hash::check($request->current_password, $user->password)) {
-        return back()->with('error', 'Current password is incorrect');
-      }
-
-      if ($request->new_password !== $request->confirm_password) {
-        return back()->with('error', 'New passwords do not match');
-      }
-
-      $user->password = Hash::make($request->new_password);
-    }
-
-    $user->save();
-
-    session(['user' => $user]);
-
-    return back()->with('success', 'Profile updated successfully');
-  }
-
-  public function logout()
-  {
-    session()->forget('user');
-
-    return redirect()->route('login')->with('success', 'Logged out successfully');
   }
 }

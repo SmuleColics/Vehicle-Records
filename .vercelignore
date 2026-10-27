@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+/vehicle-records
+/storage/logs/*.log
+/storage/framework/views/*.php
+/storage/framework/sessions/*
+/bootstrap/cache/*.php
+/database/database.sqlite
+.env
+.env.*
+!.env.example

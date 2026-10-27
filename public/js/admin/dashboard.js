@@ -23,19 +23,23 @@ new Chart(document.getElementById('recordsChart'), {
     }
 });
 
-new Chart(document.getElementById('typeChart'), {
-    type: 'doughnut',
-    data: {
-        labels: Object.keys(typeData),
-        datasets: [{
-            data: Object.values(typeData),
-            backgroundColor: [gold, '#6c757d', '#adb5bd', '#dee2e6', '#111111'],
-            borderWidth: 0,
-            hoverOffset: 6,
-        }]
-    },
-    options: {
-        cutout: '60%',
-        plugins: { legend: { display: false } }
-    }
-});
+// the client portal hides this chart when there are no vehicles yet
+const typeChart = document.getElementById('typeChart');
+if (typeChart) {
+    new Chart(typeChart, {
+        type: 'doughnut',
+        data: {
+            labels: Object.keys(typeData),
+            datasets: [{
+                data: Object.values(typeData),
+                backgroundColor: [gold, '#6c757d', '#adb5bd', '#dee2e6', '#111111'],
+                borderWidth: 0,
+                hoverOffset: 6,
+            }]
+        },
+        options: {
+            cutout: '60%',
+            plugins: { legend: { display: false } }
+        }
+    });
+}

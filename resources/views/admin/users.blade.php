@@ -25,6 +25,8 @@
                         <th class="px-4 py-3 fw-semibold">ID</th>
                         <th class="px-4 py-3 fw-semibold">Full Name</th>
                         <th class="px-4 py-3 fw-semibold">Email</th>
+                        <th class="px-4 py-3 fw-semibold">Role</th>
+                        <th class="px-4 py-3 fw-semibold">Vehicles</th>
                         <th class="px-4 py-3 fw-semibold">Created Date</th>
                         <th class="px-4 py-3 fw-semibold text-end" style="width:120px;">Actions</th>
                     </tr>
@@ -35,6 +37,16 @@
                             <td class="px-4 py-3 fw-medium">{{ $user->id }}</td>
                             <td class="px-4 py-3 text-secondary">{{ $user->name }}</td>
                             <td class="px-4 py-3 text-secondary">{{ $user->email }}</td>
+                            <td class="px-4 py-3">
+                                <span
+                                    class="badge rounded-pill fw-normal {{ $user->isAdmin() ? 'bg-warning-subtle text-warning-emphasis' : 'bg-secondary-subtle text-secondary-emphasis' }}">
+                                    {{ $user->isAdmin() ? 'Admin' : 'Client' }}
+                                </span>
+                                @if ($user->isDemo())
+                                    <span class="badge rounded-pill bg-info-subtle text-info-emphasis fw-normal">Demo</span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-secondary">{{ $user->vehicles_count }}</td>
                             <td class="px-4 py-3 text-secondary">{{ $user->created_at }}</td>
                             <td class="px-4 py-3">
                                 <div class="d-flex justify-content-end gap-1">
@@ -83,6 +95,19 @@
                                     <input type="email" name="email" class="form-control form-control-sm py-2"
                                         value="{{ $user->email }}" placeholder="james@gmail.com" required />
                                     <div class="invalid-feedback">Please enter a valid email address.</div>
+                                </div>
+
+                                {{-- Role --}}
+                                <div class="col-12">
+                                    <label class="form-label small fw-medium">Role</label>
+                                    <select name="role" class="form-select form-select-sm py-2"
+                                        {{ $user->id == session('user')->id ? 'disabled' : '' }}>
+                                        <option value="client" {{ !$user->isAdmin() ? 'selected' : '' }}>Client</option>
+                                        <option value="admin" {{ $user->isAdmin() ? 'selected' : '' }}>Admin</option>
+                                    </select>
+                                    @if ($user->id == session('user')->id)
+                                        <div class="form-text">You can't change your own role.</div>
+                                    @endif
                                 </div>
 
                                 {{-- Divider --}}
@@ -193,6 +218,13 @@
                                 <input type="email" name="email" class="form-control form-control-sm py-2"
                                     placeholder="james@gmail.com" value="{{ old('email') }}" required />
                                 <div class="invalid-feedback">Please enter a valid email address.</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-medium">Role</label>
+                                <select name="role" class="form-select form-select-sm py-2">
+                                    <option value="client" selected>Client</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </div>
                             <div class="col-12">
                                 <label class="form-label small fw-medium">Password</label>

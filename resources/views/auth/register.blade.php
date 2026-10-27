@@ -24,6 +24,13 @@
         <div class="col-12 col-md-6 d-flex align-items-center justify-content-center px-4 py-5 bg-white">
             <div class="auth-form-wrap w-100">
 
+                <!-- Back to landing page -->
+                <div class="mb-4">
+                    <a href="{{ route('home') }}" class="d-inline-flex align-items-center gap-1 small text-secondary text-decoration-none">
+                        <i class="bi bi-arrow-left"></i> Back to home
+                    </a>
+                </div>
+
                 <!-- Logo -->
                 <a href="/"
                     class="d-inline-flex align-items-center gap-2 text-decoration-none text-dark fw-bold mb-5">
@@ -34,7 +41,7 @@
                 </a>
 
                 <h1 class="fw-bold fs-3 mb-1">Create your account</h1>
-                <p class="text-secondary small mb-4">Flood control vehicle records.</p>
+                <p class="text-secondary small mb-4">Start managing your vehicle records in minutes.</p>
 
                 <!-- Form -->
                 <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
