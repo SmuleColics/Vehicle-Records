@@ -1,5 +1,7 @@
 # Garahe — Vehicle Records Management
 
+**Live demo: [garahe-theta.vercel.app](https://garahe-theta.vercel.app)** — use "Explore as admin" or "Explore as client" to look around without signing up.
+
 A Laravel 12 web app for managing vehicle records, with two sides:
 
 - **Admin console**: fleet-wide dashboard, every vehicle and its owner, user management with admin/client roles.
